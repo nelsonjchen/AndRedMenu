@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @author Johan Henkens
  *
  */
+@SuppressWarnings("serial")
 public class FoodItem implements Serializable{
 	private String name;
 	private boolean vegan;

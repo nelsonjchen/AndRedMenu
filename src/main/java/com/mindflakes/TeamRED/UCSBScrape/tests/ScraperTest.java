@@ -11,14 +11,5 @@ public class ScraperTest {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testUCSBJMenuScraperUCSBMenuFile() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMenus() {
-		fail("Not yet implemented");
-	}
 
 }

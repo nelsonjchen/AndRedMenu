@@ -5,6 +5,7 @@ package com.mindflakes.TeamRED.UCSBScrape;
  * @author Johan Henkens
  *
  */
+@SuppressWarnings("serial")
 public class LineErrorException extends RuntimeException {
 
 	/**

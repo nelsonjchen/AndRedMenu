@@ -16,6 +16,7 @@ import com.mindflakes.TeamRED.menuClasses.*;
  */
 public class UCSBJMenuScraper {
 	private static final String[] mealNames = {"Breakfast","Lunch","Dinner","Brunch","Late Night"};
+	@SuppressWarnings("unused")
 	private UCSBMenuFile file;
 	private ArrayList<MealMenu> menus = new ArrayList<MealMenu>();
 

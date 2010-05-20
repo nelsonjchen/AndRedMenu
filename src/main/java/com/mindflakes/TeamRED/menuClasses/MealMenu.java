@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * @author Johan Henkens
  *
  */
+@SuppressWarnings("serial")
 public class MealMenu implements Serializable{
 	private String _menuKey;
 	private String commonsName;
