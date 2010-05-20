@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * @author Johan Henkens
  *
  */
+@SuppressWarnings("serial")
 public class Venue implements Serializable{
 	private String name;
 	private ArrayList<FoodItem> foodItems;
