@@ -172,5 +172,18 @@ public class MealMenu implements Serializable{
 	public MealMenu newMealMenuFromVegetarian(){
 		return new MealMenu(this.commonsName,this.startMillis,this.endMillis,this.modMillis,this.getVegetarianVenues(),this.mealName);
 	}
+	
+	public String toString() {
+		MealMenu menu = this;
+		String append = "*";
+		append += menu.getCommonsName() + "*\n";
+		for (Venue v : menu.getVenues()) {
+			append += "\\" + v.getName() + "\n";
+			for (FoodItem f: v.getFoodItems()) {
+				append += "*" + f.getName() + "\n";
+			}
+		}
+		return append;
+	}
 
 }
