@@ -2,4 +2,14 @@
 <resources>
     <string name="hello">Hello World, AndRedMenuActivity!</string>
     <string name="app_name">AndRedMenu</string>
+    
+    <string name="commons_name_short_carrillo">Carrillo</string>
+<string name="commons_name_short_dlg">DLG</string>
+<string name="commons_name_short_ortega">Ortega</string>
+<string name="commons_name_short_portola">Portola</string>
+<string name="commons_name_carrillo">Carrillo Commons</string>
+<string name="commons_name_dlg">De La Guerra Commons</string>
+<string name="commons_name_ortega">Ortega Commons</string>
+<string name="commons_name_portola">Portola Commons</string>
+<string name="combined_two_weeks_menus_gz_url">http://web.me.com/jomanscool2/outfiles/CombinedNextTwoWeeks.xml.gz</string>
 </resources>
