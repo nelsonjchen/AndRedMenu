@@ -16,4 +16,4 @@ local.properties
 *.jar
 .classpath 
 .project 
-.settings
+.settings/
