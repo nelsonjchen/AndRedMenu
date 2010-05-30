@@ -25,7 +25,7 @@
 				<version>2.3.3</version>
 				<configuration>
 					<sdk>
-						<platform>7</platform>
+						<platform>8</platform>
 					</sdk>
 					<deleteConflictingFiles>true</deleteConflictingFiles>
 				</configuration>
