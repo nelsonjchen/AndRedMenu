@@ -4,17 +4,44 @@
     <string name="app_name">AndRedMenu</string>
     
     <string name="commons_name_short_carrillo">Carrillo</string>
-<string name="commons_name_short_dlg">DLG</string>
+<string name="commons_name_short_dlg">De La Guerra</string>
 <string name="commons_name_short_ortega">Ortega</string>
 <string name="commons_name_short_portola">Portola</string>
 <string name="commons_name_carrillo">Carrillo Commons</string>
 <string name="commons_name_dlg">De La Guerra Commons</string>
 <string name="commons_name_ortega">Ortega Commons</string>
 <string name="commons_name_portola">Portola Commons</string>
-<string name="combined_two_weeks_menus_gz_url">http://web.me.com/jomanscool2/outfiles/CombinedNextTwoWeeks.xml.gz</string>
+<string name="commons_name_supershort_dlg">DLG</string><string name="commons_name_all_commons">All Commons</string><string name="combined_two_weeks_menus_gz_url">http://web.me.com/jomanscool2/outfiles/CombinedNextTwoWeeks.xml.gz</string>
 <string name="local_file_gz">CombinedNextTwoWeeks.xml.gz</string>
 <string name="local_file_xml">CombinedNextTwoWeeks.xml</string>
 <string name="local_file_serialized_zipped">serializedMenus.sz.gz</string>
 <string name="local_file_serialized">serializedMenus.sz</string>
 <string name="serialized_menus_remote">http://web.me.com/jomanscool2/outfiles/serializedMenus.sz.gz</string>
+<string name="common_name_prompt">Commons</string>
+    
+
+<string name="no_results">Your search yielded no results.</string><string-array name="commons_array">
+        <item>@string/commons_name_all_commons</item>   
+        <item>@string/commons_name_short_carrillo</item>
+        <item>@string/commons_name_short_dlg</item>
+        <item>@string/commons_name_short_ortega</item>
+        <item>@string/commons_name_short_portola</item>
+    </string-array>
+
+<string name="food_preference_text">Select food preference:</string><string name="select_full">Full Menus</string><string name="select_vgt">Vegetarian Menus (includes vegan food)</string>
+<string name="select_vegan">Vegan Menus</string><string name="warning_vegan_veg">Note that Vegan (mostly) only contains foods with the keyword \'Vegan\' and Vegetarian may occasionally have non vegetarian foods.</string><string name="submit_text">Submit Search</string>
+<string name="food_request">Please enter a food name:</string>
+<string name="commons_request">Please select a dining common:</string>
+
+
+
+
+<string name="no_menus">Menu database is empty for current selection.</string>
+
+<string name="quick_view">Quick View</string>
+<string name="settings">Settings</string>
+<string name="main_view">Main View</string>
+<string name="menu_preference_file">menu_preferences</string>
+<string name="clear_sql">Clear SQL</string>
+<string name="update_menus">Update Menus</string>
 </resources>

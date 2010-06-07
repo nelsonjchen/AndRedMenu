@@ -14,19 +14,6 @@
         <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-    			<ListView android:id="@+id/mainlist1"
-          			android:layout_width="wrap_content"
-        			android:layout_height="wrap_content"/>
-    			<ListView android:id="@+id/mainlist2"
-          			android:layout_width="wrap_content"
-        			android:layout_height="wrap_content"/>
-    			<ListView android:id="@+id/mainlist3"
-          			android:layout_width="wrap_content"
-        			android:layout_height="wrap_content"/>
-    			<ListView android:id="@+id/mainlist4"
-          			android:layout_width="wrap_content"
-        			android:layout_height="wrap_content"/>
-        </FrameLayout>
+            android:layout_height="fill_parent"/>
     </LinearLayout>
 </TabHost>

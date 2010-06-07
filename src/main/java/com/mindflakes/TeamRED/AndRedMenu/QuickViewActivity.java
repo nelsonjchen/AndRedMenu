@@ -1,183 +1,156 @@
 package com.mindflakes.TeamRED.AndRedMenu;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 
 import org.joda.time.DateTime;
 
 import android.app.TabActivity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TabHost;
 
 import com.mindflakes.TeamRED.MenuXML.Reader;
-import com.mindflakes.TeamRED.menuClasses.FoodItem;
-import com.mindflakes.TeamRED.menuClasses.MealMenu;
-import com.mindflakes.TeamRED.menuClasses.Venue;
 
 public class QuickViewActivity extends TabActivity {
+	
+	private static final int QUICK_VIEW = 1234;
+	private static final int MAIN_VIEW = 1235;
+	private static final int SETTINGS = 1236;
+
+	private Resources res;
 	private TabHost mTabHost;
 	private MealMenuDBAdapter  mDbAdapter;
 //	private NotesDbAdapter mDbAdapter;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-            setContentView(R.layout.quick_view);
-            String type = "Passed";
-            mTabHost = getTabHost();
+    	super.onCreate(savedInstanceState);
+    	res = getResources();
+    	setContentView(R.layout.quick_view);
+    	mTabHost = getTabHost();
 
-            try{
-            	mDbAdapter = new MealMenuDBAdapter(this);
-            	mDbAdapter.open();
-            } catch(Exception e){
-            	type = e.getClass().toString();
-            }
-//            readMenus();
-
-            
-            mTabHost.addTab(mTabHost.newTabSpec("tab_test1").setIndicator(getResources().getString(R.string.commons_name_short_carrillo)).setContent(R.id.quicklist1));
-            mTabHost.addTab(mTabHost.newTabSpec("tab_test2").setIndicator(getResources().getString(R.string.commons_name_short_dlg)).setContent(R.id.quicklist2));
-            mTabHost.addTab(mTabHost.newTabSpec("tab_test3").setIndicator(getResources().getString(R.string.commons_name_short_ortega)).setContent(R.id.quicklist3));
-            mTabHost.addTab(mTabHost.newTabSpec("tab_test4").setIndicator(getResources().getString(R.string.commons_name_short_portola)).setContent(R.id.quicklist4));
-            updateViews();
-            mTabHost.setCurrentTab(0);
-    }
-    
-    private ArrayList<String> toArrayHelper(MealMenu menu){
-    	if(menu==null) return new ArrayList<String>();
-    	ArrayList<String> arr = new ArrayList<String>();
-    	for(Venue ven:menu.getVenues()){
-    		arr.add(ven.getName());
-    		for(FoodItem food:ven.getFoodItems()){
-    			arr.add("       "+food.getName());
-    		}
+    	try{
+    		mDbAdapter = new MealMenuDBAdapter(this);
+    		mDbAdapter.open();
+    	} catch(Exception e){
     	}
-    	return arr;
+    	//            readMenus();
+
+    	addTabs();
+    	mTabHost.setCurrentTab(0);
     }
     
-    private void updateViews(){
-    	ListView view = (ListView)findViewById(R.id.quicklist1);
-        ArrayList<String> toSet = toArrayHelper(getMealMenu(1));
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.quick_row,toSet);
-        view.setAdapter(adapter);
-        view = (ListView)findViewById(R.id.quicklist2);
-        toSet = toArrayHelper(getMealMenu(2));
-        adapter = new ArrayAdapter<String>(this,R.layout.quick_row,toSet);
-        view.setAdapter(adapter);
-        view = (ListView)findViewById(R.id.quicklist3);
-        toSet = toArrayHelper(getMealMenu(3));
-        adapter = new ArrayAdapter<String>(this,R.layout.quick_row,toSet);
-        view.setAdapter(adapter);
-        view = (ListView)findViewById(R.id.quicklist4);
-        toSet = toArrayHelper(getMealMenu(4));
-        adapter = new ArrayAdapter<String>(this,R.layout.quick_row,toSet);
-        view.setAdapter(adapter);
-    }
+    
+    
+	@Override
+	protected void onResume() {
+		super.onResume();
+		int currentTab = mTabHost.getCurrentTab();
+		if(mTabHost==null) mTabHost=getTabHost();
+		mTabHost.setCurrentTab(0);
+		mTabHost.clearAllTabs();
+		addTabs();
+		mTabHost.setCurrentTab(currentTab);
+	}
+
+
+	private void addTabs(){
+		TabHost.TabSpec spec;  // Reusable TabSpec for each tab
+		Intent intent;  // Reusable Intent for each tab
+		long millis = new DateTime().getMillis();
+
+		// Create an Intent to launch an Activity for the tab (to be reused)
+		intent = new Intent().setClass(this, MenuViewActivity.class);
+		intent.putExtra(MenuViewActivity.KEY_MODE, MenuViewActivity.MODE_COMMONS);
+		intent.putExtra(MealMenuDBAdapter.KEY_MEALMENU_NAME,res.getString(R.string.commons_name_short_carrillo));
+			
+		// Initialize a TabSpec for each tab and add it to the TabHost
+		spec = mTabHost.newTabSpec(res.getString(R.string.commons_name_short_carrillo)+millis)
+		.setIndicator(res.getString(R.string.commons_name_short_carrillo))
+		.setContent(intent);
+		mTabHost.addTab(spec);
+
+		// Do the same for the other tabs
+		intent = new Intent().setClass(this, MenuViewActivity.class);
+		intent.putExtra(MenuViewActivity.KEY_MODE, MenuViewActivity.MODE_COMMONS);
+		intent.putExtra(MealMenuDBAdapter.KEY_MEALMENU_NAME,res.getString(R.string.commons_name_short_dlg));
+		spec = mTabHost.newTabSpec(res.getString(R.string.commons_name_supershort_dlg)+millis)
+		.setIndicator(res.getString(R.string.commons_name_supershort_dlg))
+		.setContent(intent);
+		mTabHost.addTab(spec);
+
+
+		intent = new Intent().setClass(this, MenuViewActivity.class);
+		intent.putExtra(MenuViewActivity.KEY_MODE, MenuViewActivity.MODE_COMMONS);
+		intent.putExtra(MealMenuDBAdapter.KEY_MEALMENU_NAME,res.getString(R.string.commons_name_short_ortega));
+		spec = mTabHost.newTabSpec(res.getString(R.string.commons_name_short_ortega)+millis)
+		.setIndicator(res.getString(R.string.commons_name_short_ortega))
+		.setContent(intent);
+		mTabHost.addTab(spec);
+
+		intent = new Intent().setClass(this, MenuViewActivity.class);
+		intent.putExtra(MenuViewActivity.KEY_MODE, MenuViewActivity.MODE_COMMONS);
+		intent.putExtra(MealMenuDBAdapter.KEY_MEALMENU_NAME,res.getString(R.string.commons_name_short_portola));
+		spec = mTabHost.newTabSpec(res.getString(R.string.commons_name_short_portola)+millis)
+		.setIndicator(res.getString(R.string.commons_name_short_portola))
+		.setContent(intent);
+		mTabHost.addTab(spec);
+
+		mTabHost.setCurrentTab(0);
+
+	}
     
     /* Creates the menu items */
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, 1234, 0, "Clear SQL");
-        menu.add(0, 1235, 0, "Update Menus");
-        menu.add(0, 1236, 0, "Main View");
+        menu.add(0, QUICK_VIEW, 0, res.getString(R.string.quick_view));
+        menu.add(0, MAIN_VIEW, 0, res.getString(R.string.main_view));
+        menu.add(0, SETTINGS, 0, res.getString(R.string.settings));
         return true;
     }
 
-    protected void readMenus(){
-    	try{
-			loadMenusToSQL();
-    	}catch(FileNotFoundException e){
-    		updateMenuFiles();
-    	}
-    }
-    
-    private void loadMenusToSQL() throws FileNotFoundException, NotFoundException{
-    	mDbAdapter.clear();
-		mDbAdapter.addMenus(Reader.readSerialized(openFileInput(getResources().getString(R.string.local_file_serialized))));
-    }
-    
-    protected MealMenu getMealMenu(int mode){
-    	switch(mode){
-    	case 1:
-        	return mDbAdapter.selectFirstMeal("Carrillo", new Long(new DateTime().getMillis()));
-    	case 2:
-        	return mDbAdapter.selectFirstMeal("De La Guerra", new Long(new DateTime().getMillis()));
-    	case 3:
-        	return mDbAdapter.selectFirstMeal("Ortega", new Long(new DateTime().getMillis()));
-    	case 4:
-        	return mDbAdapter.selectFirstMeal("Portola", new Long(new DateTime().getMillis()));
-    	}
-    	return null;
-    }
-    
     /* Handles item selections */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case 1234:
-        	mDbAdapter.clear();
-            return true;
-        case 1235:
-        	updateMenuFiles();
-        	updateViews();
-            return true;
-        case 1236:
-            Intent i = new Intent(this, MainViewActivity.class);
+        case SETTINGS:
+            Intent i = new Intent(this, SettingsActivity.class);
             startActivity(i);
+            return true;
+        case QUICK_VIEW:
+            return true;
+        case MAIN_VIEW:
+            Intent i4 = new Intent(this, MainViewActivity.class);
+            startActivity(i4);
+            return true;
+       	
         }
         return false;
     }
     
-    protected void updateMenuFiles(){
-		try{
-			URL remoteFile = new URL(getResources().getString(R.string.serialized_menus_remote));
-			
-		    HttpURLConnection c = (HttpURLConnection) remoteFile.openConnection();
-		    c.setRequestMethod("GET");
-		    c.setDoOutput(true);
-		    c.connect();
-		    FileOutputStream f = openFileOutput(getResources().getString(R.string.local_file_serialized_zipped),MODE_PRIVATE);
-		    InputStream in = c.getInputStream();
-
-		    byte[] buffer = new byte[1024];
-		    int len1 = 0;
-		    while ( (len1 = in.read(buffer)) > 0 ) {
-		         f.write(buffer,0, len1);
-		 }
-		    f.close();
-		    in.close();
-			Reader.uncompressFile(openFileInput(getResources().getString(R.string.local_file_serialized_zipped)),
-					openFileOutput(getResources().getString(R.string.local_file_serialized),MODE_PRIVATE));
-			loadMenusToSQL();
-		}catch(IOException e){
-			e.printStackTrace();
+    
+    
+    @Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_SEARCH){
+			Intent i3 = new Intent(this, SearchActivity.class);
+        	startActivity(i3);
+        	return true;
 		}
-    }
-//    
-//    public void switchToListView() {
-//      super.onCreate(savedInstanceState);
-//
-//      setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, COUNTRIES));
-//
-//      ListView lv = getListView();
-//      lv.setTextFilterEnabled(true);
-//
-//      lv.setOnItemClickListener(new OnItemClickListener() {
-//        public void onItemClick(AdapterView<?> parent, View view,
-//            int position, long id) {
-//          // When clicked, show a toast with the TextView text
-//          Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-//              Toast.LENGTH_SHORT).show();
-//        }
-//      });
-//    }
+		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+            return true;
+		}
+		// TODO Auto-generated method stub
+		return super.onKeyLongPress(keyCode, event);
+	}
+    
+
 }

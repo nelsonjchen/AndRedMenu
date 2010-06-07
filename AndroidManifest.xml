@@ -13,9 +13,17 @@
         </activity>
 
     <activity android:name=".MainViewActivity"></activity>
+<activity android:name=".FullMenuListActivity"></activity>
+<activity android:name=".MenuViewActivity"></activity>
+<activity android:name=".SettingsActivity"></activity>
+<activity android:name=".SearchActivity"></activity>
+<activity android:name=".SearchMenuListActivity"></activity>
+
+
 </application>
 
 
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
+<uses-sdk android:minSdkVersion="5"></uses-sdk>
 </manifest> 
